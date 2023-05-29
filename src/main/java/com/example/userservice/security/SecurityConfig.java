@@ -58,49 +58,44 @@ public class SecurityConfig {
      */
 
     /*
+     * @Bean
+     * public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+     * 
+     * UserDetails admin = User.withUsername("toto")
+     * .password(encoder.encode("pdw"))
+     * .roles("ADMIN")
+     * .build();
+     * 
+     * UserDetails user = User.withUsername("toto2")
+     * .password(encoder.encode("pdw2"))
+     * .roles("USER")
+     * .build();
+     * 
+     * return new InMemoryUserDetailsManager(admin, user);
+     * }
+     */
+
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        UserDetails admin = User.withUsername("toto")
-                .password(encoder.encode("pdw"))
-                .roles("ADMIN")
-                .build();
-
-        UserDetails user = User.withUsername("toto2")
-                .password(encoder.encode("pdw2"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
-    }*/
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        
         return http
-         //.csrf().disable()
-        .authorizeHttpRequests((authorize)-> authorize.requestMatchers("/api/users").permitAll())//anyRequest().authenticated())//.authenticated())
-        //.requestMatchers("/api/user/save").permitAll().and()
-        //.authorizeHttpRequests().requestMatchers("/api/users")
-        //.authenticated().and().formLogin()
-        //.and()
-        .build();
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeHttpRequests().anyRequest().permitAll()
+                .and()
+                //.addFilter(new CustomAuthenticationFilter(new AuthenticationManager(authenticationManagerBean())))
+                // .authorizeHttpRequests((authorize)->
+                // authorize.requestMatchers("/api/users").permitAll())//anyRequest().authenticated())//.authenticated())
 
-        //tttttt
-
-        
-        
+                // .requestMatchers("/api/user/save").permitAll().and()
+                // .authorizeHttpRequests().requestMatchers("/api/users")
+                // .authenticated().and().formLogin()
+                // .and()
+                .build();
 
     }
 
-    /*
-     * @Bean
-     * 
-     * @Override
-     * public AuthenticationManager authenticationManagerBean() throws Exception {
-     * 
-     * return super.AuthenticationManagerBean();
-     * }
-     */
+    
 
 }

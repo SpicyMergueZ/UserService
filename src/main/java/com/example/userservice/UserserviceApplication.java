@@ -34,7 +34,7 @@ public class UserserviceApplication {
 			userService.saveRole(new Role(null, "ROLE_MANAGER"));
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
 			userService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
-			userService.saveRole(new Role(null, "ROLE_MON_ROLE"));
+			//userService.saveRole(new Role(null, "ROLE_MON_ROLE"));
 
 			userService.saveUser(new User(null, "John Travolta", "john", "1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "Will Smith", "will", "1234", new ArrayList<>()));
